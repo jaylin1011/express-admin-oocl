@@ -5,6 +5,7 @@
 npm install
 // 运行项目
 npm run dev
+Note：开发中使用nodemon，所以运行项目前请确保本地环境中有安装nodemon，或者将package.json的nodemon修改为node也可以运行
 ```
 
 # 项目描述
