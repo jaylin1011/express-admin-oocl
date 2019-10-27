@@ -26,7 +26,7 @@ const onClose = () => {
 }
 
 // mongo db connect
-const connectDb = () => {
+const connectDb = (app) => {
   mongoose.connect(uri, options)
 }
 // mongoose.Promise = global.Promise

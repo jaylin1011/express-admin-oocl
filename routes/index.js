@@ -1,11 +1,7 @@
-// var express = require('express')
-import express from 'express'
+import adminRouter from './admin/index'
 
-const router = express.Router()
-
-/* GET home page. */
-router.get('/', (req, res) => {
-  res.json({ message: 'express' })
-})
+const router = (app) => {
+  adminRouter(app)
+}
 
 export default router

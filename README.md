@@ -5,7 +5,7 @@
 npm install
 // 运行项目
 npm run dev
-Note：开发中使用nodemon，所以运行项目前请确保本地环境中有安装nodemon，或者将package.json的nodemon修改为node也可以运行
+// Note：开发中使用nodemon，所以运行项目前请确保本地环境中有安装nodemon，或者将package.json的nodemon修改为node也可以运行
 ```
 
 # 项目描述
@@ -22,11 +22,27 @@ API风格：RESTful
 
 项目目录仿照MVC结构，此处不一一赘述
 
-# 项目模块
+# 项目相关模块
 
 - chalk——控制台打印优化
 - babel——转码，使用ES6模块化等
 - eslint——代码检测
+- mongoose——MongoDB数据库操作
+- cors——跨域资源共享
+- bcryptjs——密码散列加密
+- jwt——生成token
+- passport——权限校验，用户授权
+- passport-jwt——token解析校验
+- http-assert ——统一响应机制模块
+- validator ——字符串验证工具库
+
+# 项目相关功能
+
+- 后端跨域处理
+- 用户注册登录
+- 用户管理
+
+
 
 
 
