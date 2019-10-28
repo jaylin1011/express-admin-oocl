@@ -17,9 +17,9 @@ router
   .post('/signin', userController.userSignin)
   .put('/:id',
     passport.authenticate('jwt', { session: false }),
-    userController.updateUser)
+    userController.updateUserById)
   .delete('/:id',
     passport.authenticate('jwt', { session: false }),
-    userController.deleteUser)
+    userController.deleteUserById)
 
 export default router

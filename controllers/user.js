@@ -1,6 +1,11 @@
 import { compareSync } from 'bcryptjs'
 import assert from 'http-assert'
 import jwt from 'jsonwebtoken'
+import {
+  getAll,
+  getOnelById,
+  deleteOneById
+} from './common'
 import jwtConfig from '../config/jwt'
 import User from '../models/user'
 import { validateInput } from '../utils/validate'
@@ -94,38 +99,16 @@ const userSignin = async (req, res, next) => {
 }
 
 // 用户列表
-const getUsers = async (req, res, next) => {
-  try {
-    const doc = await User.find()
-
-    res
-      .status(200)
-      .json({
-        error_code: 0,
-        data: doc
-      })
-  } catch (error) {
-    next(error)
-  }
-}
+const getUsers = getAll(User)
 
 // 用户详情
-const getUserById = async (req, res, next) => {
-  try {
-    const doc = await User.findById(req.params.id)
-    assert(doc, 400, { message: '获取数据失败!QAQ', err_code: 9 })
+const getUserById = getOnelById(User)
 
-    res.json({
-      error_code: 0,
-      data: doc
-    })
-  } catch (error) {
-    next(error)
-  }
-}
+// 删除用户
+const deleteUserById = deleteOneById(User)
 
 // 修改用户
-const updateUser = async (req, res, next) => {
+const updateUserById = async (req, res, next) => {
   try {
     // 用户输入验证
     const { result, isFlag } = validateInput(req.body)
@@ -143,28 +126,56 @@ const updateUser = async (req, res, next) => {
   }
 }
 
+// 用户列表
+// const getUsers = async (req, res, next) => {
+//   try {
+//     const doc = await User.find()
+
+//     res
+//       .status(200)
+//       .json({
+//         error_code: 0,
+//         data: doc
+//       })
+//   } catch (error) {
+//     next(error)
+//   }
+// }
+// 用户详情
+// const getUserById = async (req, res, next) => {
+//   try {
+//     const doc = await User.findById(req.params.id)
+//     assert(doc, 400, { message: '获取数据失败!QAQ', err_code: 9 })
+
+//     res.json({
+//       error_code: 0,
+//       data: doc
+//     })
+//   } catch (error) {
+//     next(error)
+//   }
+// }
 
 // 删除用户
-const deleteUser = async (req, res, next) => {
-  try {
-    const doc = await User.findByIdAndDelete(req.params.id)
-    assert(doc, 400, { message: '操作失败!QAQ', err_code: 11 })
-    res.json({
-      error_code: 0,
-      data: doc,
-      message: '操作成功!=。='
-    })
-  } catch (error) {
-    next(error)
-  }
-}
-
+// const deleteUserById = async (req, res, next) => {
+//   try {
+//     const doc = await User.findByIdAndDelete(req.params.id)
+//     assert(doc, 400, { message: '操作失败!QAQ', err_code: 11 })
+//     res.json({
+//       error_code: 0,
+//       data: doc,
+//       message: '操作成功!=。='
+//     })
+//   } catch (error) {
+//     next(error)
+//   }
+// }
 
 export default {
   userSignup,
   userSignin,
   getUsers,
   getUserById,
-  updateUser,
-  deleteUser,
+  updateUserById,
+  deleteUserById
 }

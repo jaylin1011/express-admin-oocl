@@ -5,13 +5,17 @@ import createError from 'http-errors'
 import express from 'express'
 import logger from 'morgan'
 import passport from 'passport'
-import { PUBLIC_PATH, UPLOAD_PATH, VIEW_PATH } from './config/constants'
+import {
+  PUBLIC_PATH,
+  UPLOAD_PATH,
+  VIEW_PATH
+} from './config/constants'
 import router from './routes/index'
-import connectDb from './utils/db'
+import Database from './utils/db'
 import passportJwt from './utils/passport'
 
 const app = express()
-connectDb(app)
+Database.connectDb()
 
 // view engine setup
 app.set('views', VIEW_PATH)
@@ -32,7 +36,7 @@ passportJwt(passport)
 
 // app.use(express.static(path.join(__dirname, 'public')))
 app.use('/public', express.static(PUBLIC_PATH))
-app.use('/upload', express.static(UPLOAD_PATH))
+app.use('/uploads', express.static(UPLOAD_PATH))// 图片上传静态资源托管
 
 router(app)
 
@@ -53,9 +57,23 @@ app.use(function (err, req, res, next) {
   res.locals.message = err.message
   res.locals.error = req.app.get('env') === 'development' ? err : {}
 
-  // render the error page
+  // error response
+  // res
+  //   .status(err.status || 500)
+  //   .json({
+  //     err_code: err.err_code,
+  //     message: err.message
+  //   })
+  if (!err.status) {
+    return res
+      .status(500)
+      .json({
+        err_code: -1,
+        message: '服务器忙，请稍后重试!QAQ'
+      })
+  }
   res
-    .status(err.status || 500)
+    .status(err.status)
     .json({
       err_code: err.err_code,
       message: err.message

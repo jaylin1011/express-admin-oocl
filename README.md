@@ -35,12 +35,15 @@ API风格：RESTful
 - passport-jwt——token解析校验
 - http-assert ——统一响应机制模块
 - validator ——字符串验证工具库
+- multer——表单文件上传
 
-# 项目相关功能
 
-- 后端跨域处理
-- 用户注册登录
-- 用户管理
+
+优化异常提示
+
+优化图片上传
+
+封装数据库通用CRUD操作
 
 
 

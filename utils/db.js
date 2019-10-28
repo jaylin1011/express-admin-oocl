@@ -26,7 +26,7 @@ const onClose = () => {
 }
 
 // mongo db connect
-const connectDb = (app) => {
+const connectDb = () => {
   mongoose.connect(uri, options)
 }
 // mongoose.Promise = global.Promise
@@ -39,4 +39,4 @@ db.on('error', onError)
 
 db.on('close', onClose)
 
-export default connectDb
+export default { connectDb }
