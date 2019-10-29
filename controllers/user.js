@@ -114,7 +114,21 @@ const updateUserById = async (req, res, next) => {
     const { result, isFlag } = validateInput(req.body)
     assert(isFlag, 400, { message: result.message, err_code: result.err_code })
 
-    const doc = await User.findByIdAndUpdate(req.params.id, req.body)
+    const { email, username } = req.body
+
+    // 判断邮箱是否被占用
+    let doc = await User.findOne({
+      email
+    })
+    assert(!doc, 400, { message: '邮箱被注册，请输入其他邮箱!QAQ', err_code: 4 })
+
+    // 判断用户名是否被占用
+    doc = await User.findOne({
+      username
+    })
+    assert(!doc, 400, { message: '用户名被注册，请输入其他用户名!QAQ', err_code: 5 })
+
+    doc = await User.findByIdAndUpdate(req.params.id, req.body)
     assert(doc, 400, { message: '操作失败!QAQ', err_code: 10 })
     res.json({
       error_code: 0,

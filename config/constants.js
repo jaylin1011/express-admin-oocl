@@ -2,7 +2,7 @@ import { join } from 'path'
 
 const PUBLIC_PATH = join(__dirname, '/../public')
 const VIEW_PATH = join(__dirname, '/../views')
-const UPLOAD_PATH = join(__dirname, '/../uploads')
+const UPLOAD_PATH = join(__dirname, '/../public/uploads')
 const BASE_URL = 'http://localhost:3000'
 const UPLOAD_URL = 'http://localhost:3000/uploads'
 

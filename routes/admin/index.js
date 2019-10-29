@@ -1,9 +1,21 @@
+import passport from 'passport'
+import articleRouter from './article'
+import categoryRouter from './category'
 import userRouter from './user'
-// import crudRouter from './crud'
 
 const adminRouter = (app) => {
+  // 用户管理
   app.use('/admin/users', userRouter)
-  // app.use('/admin/crud/:model', crudRouter)
+
+  // 分类管理
+  app.use('/admin/categories',
+    passport.authenticate('jwt', { session: false }),
+    categoryRouter)
+
+  // 文章管理
+  app.use('/admin/articles',
+    passport.authenticate('jwt', { session: false }),
+    articleRouter)
 }
 
 export default adminRouter

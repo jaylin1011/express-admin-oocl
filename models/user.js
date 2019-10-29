@@ -3,9 +3,8 @@ import { hashSync, genSaltSync } from 'bcryptjs'
 import { BASE_URL } from '../config/constants'
 
 const salt = genSaltSync(10)
-const Schema = mongoose.Schema
 
-const userSchema = new Schema({
+const schema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
@@ -42,10 +41,20 @@ const userSchema = new Schema({
     type: String,
     default: `${ BASE_URL }/public/images/avatar.jpg`,
   },
+
+  comments: [{
+    type: mongoose.SchemaTypes.ObjectId,
+    ref: 'Comment'
+  }],
+
+  articles: [{
+    type: mongoose.SchemaTypes.ObjectId,
+    ref: 'Article'
+  }]
 }, {
   timestamps: true,
 })
 
-const User = mongoose.model('User', userSchema, 'users')
+const User = mongoose.model('User', schema, 'users')
 
 export default User

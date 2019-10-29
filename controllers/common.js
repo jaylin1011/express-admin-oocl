@@ -32,7 +32,23 @@ const getOnelById = (Model) => async (req, res, next) => {
   }
 }
 
-//
+// 添加数据
+const createOne = (Model) => async (req, res, next) => {
+  try {
+    const doc = await Model.create(req.body)
+    assert(doc, 400, { message: '添加数据失败!QAQ', err_code: 9 })
+
+    res.json({
+      error_code: 0,
+      data: doc,
+      message: '操作成功!=。='
+    })
+  } catch (error) {
+    next(error)
+  }
+}
+
+// 更新数据
 const updateOneById = (Model) => async (req, res, next) => {
   try {
     const doc = await Model.findByIdAndUpdate(req.params.id, req.body)
@@ -49,7 +65,7 @@ const updateOneById = (Model) => async (req, res, next) => {
 }
 
 
-// 删除用户
+// 删除数据
 const deleteOneById = (Model) => async (req, res, next) => {
   try {
     const doc = await Model.findByIdAndDelete(req.params.id)
@@ -64,10 +80,22 @@ const deleteOneById = (Model) => async (req, res, next) => {
   }
 }
 
+// 数据重复校验
+const validUnique = (Model) => async (req, res, next) => {
+  try {
+    const doc = await Model.findOne(req.body)
+    assert(!doc, 400, { message: '该数据已存在，请使用其他数据!QAQ', err_code: 5 })
+    next()
+  } catch (error) {
+    next(error)
+  }
+}
 
 export {
   getAll,
   getOnelById,
   updateOneById,
-  deleteOneById
+  deleteOneById,
+  createOne,
+  validUnique
 }
