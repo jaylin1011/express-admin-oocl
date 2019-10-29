@@ -2,9 +2,10 @@
 import assert from 'http-assert'
 
 // 查询所有
-const getAll = (Model) => async (req, res, next) => {
+const getAll = (Model, options = {}) => async (req, res, next) => {
   try {
-    const doc = await Model.find()
+    const { queryConditions = {}, queryOptions = {} } = options
+    const doc = await Model.find().where(queryConditions).setOptions(queryOptions)
     assert(doc, 400, { message: '获取数据失败!QAQ', err_code: 9 })
     res
       .status(200)
@@ -18,9 +19,9 @@ const getAll = (Model) => async (req, res, next) => {
 }
 
 // 详情查询
-const getOnelById = (Model) => async (req, res, next) => {
+const getOnelById = (Model, queryOptions = {}) => async (req, res, next) => {
   try {
-    const doc = await Model.findById(req.params.id)
+    const doc = await Model.findById(req.params.id).setOptions(queryOptions)
     assert(doc, 400, { message: '获取数据失败!QAQ', err_code: 9 })
 
     res.json({

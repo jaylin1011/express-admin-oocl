@@ -9,10 +9,14 @@ import {
 import Category from '../models/category'
 
 // 分类列表
-const getCategories = getAll(Category)
+const getCategories = getAll(Category, {
+  queryOptions: { populate: 'articles' }
+})
 
 // 分类详情
-const getCategoryById = getOnelById(Category)
+const getCategoryById = getOnelById(Category, {
+  populate: 'articles'
+})
 
 // 添加分类
 const createCategory = createOne(Category)

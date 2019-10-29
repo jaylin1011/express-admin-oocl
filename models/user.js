@@ -43,6 +43,9 @@ const schema = new mongoose.Schema({
   }
 }, {
   timestamps: true,
+  toJSON: { // 查询附带虚拟字段
+    virtuals: true
+  }
 })
 
 schema.virtual('articles', {// 该用户的文章

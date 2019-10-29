@@ -11,7 +11,10 @@ const schema = new mongoose.Schema({
     ref: 'Category'
   }]
 }, {
-  timestamps: true
+  timestamps: true,
+  toJSON: {
+    virtuals: true
+  }
 })
 
 schema.virtual('articles', {// 该分类的文章

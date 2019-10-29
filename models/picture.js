@@ -25,7 +25,10 @@ const schema = new mongoose.Schema({
     ref: 'User'
   }]
 }, {
-  timestamps: true
+  timestamps: true,
+  toJSON: {
+    virtuals: true
+  }
 })
 
 schema.virtual('comments', {// 该图片的评论

@@ -34,7 +34,10 @@ const schema = new mongoose.Schema({
     type: String
   }
 }, {
-  timestamps: true
+  timestamps: true,
+  toJSON: {
+    virtuals: true
+  }
 })
 
 schema.virtual('comments', {// 该文章的评论

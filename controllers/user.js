@@ -99,10 +99,14 @@ const userSignin = async (req, res, next) => {
 }
 
 // 用户列表
-const getUsers = getAll(User)
+const getUsers = getAll(User, {
+  queryOptions: { populate: 'articles' }
+})
 
 // 用户详情
-const getUserById = getOnelById(User)
+const getUserById = getOnelById(User, {
+  populate: 'articles'
+})
 
 // 删除用户
 const deleteUserById = deleteOneById(User)
