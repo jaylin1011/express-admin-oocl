@@ -40,19 +40,30 @@ const schema = new mongoose.Schema({
   avatar: {
     type: String,
     default: `${ BASE_URL }/public/images/avatar.jpg`,
-  },
-
-  comments: [{
-    type: mongoose.SchemaTypes.ObjectId,
-    ref: 'Comment'
-  }],
-
-  articles: [{
-    type: mongoose.SchemaTypes.ObjectId,
-    ref: 'Article'
-  }]
+  }
 }, {
   timestamps: true,
+})
+
+schema.virtual('articles', {// 该用户的文章
+  localField: '_id',
+  foreignField: 'users',
+  jsutOne: false,
+  ref: 'Article'
+})
+
+schema.virtual('pictures', {// 该用户的图片
+  localField: '_id',
+  foreignField: 'users',
+  jsutOne: false,
+  ref: 'Picture'
+})
+
+schema.virtual('comments', {// 该用户的评论
+  localField: '_id',
+  foreignField: 'user',
+  jsutOne: false,
+  ref: 'Comment'
 })
 
 const User = mongoose.model('User', schema, 'users')

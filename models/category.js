@@ -14,11 +14,18 @@ const schema = new mongoose.Schema({
   timestamps: true
 })
 
-schema.virtual('articles', {// 分类下的所有文章
+schema.virtual('articles', {// 该分类的文章
   localField: '_id',
   foreignField: 'categories',
   jsutOne: false,
   ref: 'Article'
+})
+
+schema.virtual('pictures', {// 该分类的图片
+  localField: '_id',
+  foreignField: 'categories',
+  jsutOne: false,
+  ref: 'Picture'
 })
 
 const Category = mongoose.model('Category', schema, 'categories')

@@ -1,14 +1,13 @@
 import mongoose from 'mongoose'
 
 const schema = new mongoose.Schema({
-  categories: [{
-    type: mongoose.SchemaTypes.ObjectId,
-    ref: 'Category'
-  }],
-
   icon: {
     type: mongoose.SchemaTypes.ObjectId,
     ref: 'Picture'
+  },
+
+  content: {
+    type: 'String'
   },
 
   previews: [{
@@ -16,16 +15,24 @@ const schema = new mongoose.Schema({
     ref: 'Picture'
   }],
 
-  content: {
-    type: 'String'
-  },
+  categories: [{
+    type: mongoose.SchemaTypes.ObjectId,
+    ref: 'Category'
+  }],
 
-  user: {
+  users: [{
     type: mongoose.SchemaTypes.ObjectId,
     ref: 'User'
-  }
+  }]
 }, {
   timestamps: true
+})
+
+schema.virtual('comments', {// 该图片的评论
+  localField: '_id',
+  foreignField: 'picture',
+  jsutOne: false,
+  ref: 'Comment'
 })
 
 const Picture = mongoose.model('Picture', schema, 'pictures')

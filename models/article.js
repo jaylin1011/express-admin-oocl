@@ -32,14 +32,16 @@ const schema = new mongoose.Schema({
 
   content: {
     type: String
-  },
-
-  comments: [{
-    type: mongoose.SchemaTypes.ObjectId,
-    ref: 'Comment'
-  }],
+  }
 }, {
   timestamps: true
+})
+
+schema.virtual('comments', {// 该文章的评论
+  localField: '_id',
+  foreignField: 'article',
+  jsutOne: false,
+  ref: 'Comment'
 })
 
 const Article = mongoose.model('Article', schema, 'articles')
