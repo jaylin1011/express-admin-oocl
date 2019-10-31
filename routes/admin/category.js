@@ -7,6 +7,7 @@ const router = express.Router({
 
 router
   .get('/', categoryController.getCategories)
+  .get('/count', categoryController.countCategories)
   .get('/:id', categoryController.getCategoryById)
   .post('/',
     categoryController.checkUnique,

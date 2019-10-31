@@ -4,7 +4,8 @@ import jwt from 'jsonwebtoken'
 import {
   getAll,
   getOnelById,
-  deleteOneById
+  deleteOneById,
+  getCount
 } from './common'
 import jwtConfig from '../config/jwt'
 import User from '../models/user'
@@ -98,6 +99,9 @@ const userSignin = async (req, res, next) => {
   }
 }
 
+// 用户数量
+const countUsers = getCount(User)
+
 // 用户列表
 const getUsers = getAll(User, {
   queryOptions: { populate: 'articles' }
@@ -105,7 +109,7 @@ const getUsers = getAll(User, {
 
 // 用户详情
 const getUserById = getOnelById(User, {
-  populate: 'articles'
+  populate: 'articles',
 })
 
 // 删除用户
@@ -195,5 +199,6 @@ export default {
   getUsers,
   getUserById,
   updateUserById,
-  deleteUserById
+  deleteUserById,
+  countUsers
 }

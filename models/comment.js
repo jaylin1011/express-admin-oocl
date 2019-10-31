@@ -24,6 +24,6 @@ const schema = new mongoose.Schema({
 }, {
   timestamps: true
 })
-const Comment = mongoose.model('Comment', schema, 'commrents')
+const Comment = mongoose.model('Comment', schema, 'comments')
 
 export default Comment

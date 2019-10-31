@@ -5,6 +5,7 @@ const router = express.Router()
 
 router
   .get('/', articleController.getArticles)
+  .get('/count', articleController.countArticles)
   .get('/:id', articleController.getArticleById)
   .post('/', articleController.createArticle)
   .put('/:id', articleController.updateArticleById)

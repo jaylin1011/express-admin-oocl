@@ -1,7 +1,23 @@
 // 封装部分通用的数据库操作
 import assert from 'http-assert'
 
-// 查询所有
+// 查询数量
+const getCount = (Model, queryConditions = {}) => async (req, res, next) => {
+  try {
+    const doc = await Model.count().where(queryConditions)
+    assert(doc, 400, { message: '获取数量失败!QAQ', err_code: 9 })
+    res
+      .status(200)
+      .json({
+        error_code: 0,
+        data: doc
+      })
+  } catch (error) {
+    next(error)
+  }
+}
+
+// 查询所有符合条件的数据
 const getAll = (Model, options = {}) => async (req, res, next) => {
   try {
     const { queryConditions = {}, queryOptions = {} } = options
@@ -65,7 +81,6 @@ const updateOneById = (Model) => async (req, res, next) => {
   }
 }
 
-
 // 删除数据
 const deleteOneById = (Model) => async (req, res, next) => {
   try {
@@ -98,5 +113,6 @@ export {
   updateOneById,
   deleteOneById,
   createOne,
-  validUnique
+  validUnique,
+  getCount
 }

@@ -4,26 +4,30 @@ import {
   updateOneById,
   deleteOneById,
   createOne,
+  getCount
 } from './common'
 import Article from '../models/article'
 
-// 分类列表
+// 文章数量
+const countArticles = getCount(Article)
+
+// 文章列表
 const getArticles = getAll(Article, {
   queryOptions: { populate: 'comments' }
 })
 
-// 分类详情
+// 文章详情
 const getArticleById = getOnelById(Article, {
   populate: 'comments'
 })
 
-// 添加分类
+// 添加文章
 const createArticle = createOne(Article)
 
-// 删除分类
+// 删除文章
 const deleteArticleById = deleteOneById(Article)
 
-// 修改分类
+// 修改文章
 const updateArticleById = updateOneById(Article)
 
 export default {
@@ -32,4 +36,5 @@ export default {
   updateArticleById,
   deleteArticleById,
   createArticle,
+  countArticles
 }

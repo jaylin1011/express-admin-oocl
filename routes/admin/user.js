@@ -10,6 +10,9 @@ router
   .get('/',
     passport.authenticate('jwt', { session: false }),
     userController.getUsers)
+  .get('/count',
+    passport.authenticate('jwt', { session: false }),
+    userController.countUsers)
   .get('/:id',
     passport.authenticate('jwt', { session: false }),
     userController.getUserById)
