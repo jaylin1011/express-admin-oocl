@@ -1,7 +1,9 @@
 import chalk from 'chalk'
 import mongoose from 'mongoose'
-
+import { join } from 'path'
+import requireAll from 'require-all'
 import dbConfig from '../config/db'
+
 
 const { uri, options } = dbConfig
 
@@ -25,6 +27,7 @@ const onClose = () => {
   mongoose.connect(uri, options)
 }
 
+requireAll(join(__dirname, '/../models'))
 // mongo db connect
 const connectDb = () => {
   mongoose.connect(uri, options)

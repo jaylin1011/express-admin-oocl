@@ -4,7 +4,7 @@ import {
   updateOneById,
   deleteOneById,
   createOne,
-  validUnique
+  validUnique,
 } from './common'
 import Category from '../models/category'
 
@@ -52,5 +52,5 @@ export default {
   updateCategoryById,
   deleteCategoryById,
   createCategory,
-  checkUnique
+  checkUnique,
 }

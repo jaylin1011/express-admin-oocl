@@ -68,8 +68,8 @@ app.use(function (err, req, res, next) {
     return res
       .status(500)
       .json({
-        err_code: -1,
-        message: '服务器忙，请稍后重试!QAQ'
+        err_code: err.err_code,
+        message: err.message
       })
   }
   res

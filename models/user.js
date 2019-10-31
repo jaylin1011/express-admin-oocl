@@ -21,14 +21,12 @@ const schema = new mongoose.Schema({
     type: String,
     required: true,
     select: false,
-    set(value) {
-      return hashSync(value, salt)
-    },
+    set: value => hashSync(value, salt)
   },
 
   is_admin: {
     type: Boolean,
-    default: false,
+    default: false
   },
 
   gender: {
@@ -39,12 +37,12 @@ const schema = new mongoose.Schema({
 
   avatar: {
     type: String,
-    default: `${ BASE_URL }/public/images/avatar.jpg`,
+    default: `${ BASE_URL }/public/images/avatar.jpg`
   }
 }, {
   timestamps: true,
   toJSON: { // 查询附带虚拟字段
-    virtuals: true
+    virtuals: true,
   }
 })
 
