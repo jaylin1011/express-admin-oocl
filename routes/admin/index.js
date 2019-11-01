@@ -3,14 +3,21 @@ import articleRouter from './article'
 import categoryRouter from './category'
 import pictureRouter from './picture'
 import userRouter from './user'
+import crudRouter from './crud'
+import formatModel from '../../middlewares/formatModel'
 
 const adminRouter = (app) => {
+  // CRUD
+  app.use('/admin/crud/:model',
+    passport.authenticate('jwt', { session: false }),
+    formatModel, crudRouter)
+
   // 用户管理
   app.use('/admin/users', userRouter)
 
   // 分类管理
   app.use('/admin/categories',
-    // passport.authenticate('jwt', { session: false }),
+    passport.authenticate('jwt', { session: false }),
     categoryRouter)
 
   // 文章管理

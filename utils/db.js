@@ -28,10 +28,11 @@ const onClose = () => {
 }
 
 requireAll(join(__dirname, '/../models'))
+mongoose.connect(uri, options)
 // mongo db connect
-const connectDb = () => {
-  mongoose.connect(uri, options)
-}
+// const connectDb = () => {
+//   mongoose.connect(uri, options)
+// }
 // mongoose.Promise = global.Promise
 
 const db = mongoose.connection
@@ -42,4 +43,4 @@ db.on('error', onError)
 
 db.on('close', onClose)
 
-export default { connectDb }
+// export default { connectDb }

@@ -10,12 +10,11 @@ import {
   UPLOAD_PATH,
   VIEW_PATH
 } from './config/constants'
+import './utils/db'
 import router from './routes/index'
-import Database from './utils/db'
 import passportJwt from './utils/passport'
 
 const app = express()
-Database.connectDb()
 
 // view engine setup
 app.set('views', VIEW_PATH)

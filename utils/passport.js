@@ -1,6 +1,7 @@
 import { Strategy, ExtractJwt } from 'passport-jwt'
 import jwtConfig from '../config/jwt'
-import User from '../models/user'
+import mongoose from 'mongoose'
+const User = mongoose.model('User')
 
 const { secret } = jwtConfig
 const opts = {}

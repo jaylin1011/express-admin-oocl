@@ -1,3 +1,4 @@
+import mongoose from 'mongoose'
 import {
   getAll,
   getOnelById,
@@ -6,7 +7,8 @@ import {
   createOne,
   getCount
 } from './common'
-import Picture from '../models/picture'
+
+const Picture = mongoose.model('Picture')
 
 // 图片数量
 const countPictures = getCount(Picture)

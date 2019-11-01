@@ -1,5 +1,6 @@
 import { compareSync } from 'bcryptjs'
 import assert from 'http-assert'
+import mongoose from 'mongoose'
 import jwt from 'jsonwebtoken'
 import {
   getAll,
@@ -8,8 +9,9 @@ import {
   getCount
 } from './common'
 import jwtConfig from '../config/jwt'
-import User from '../models/user'
 import { validateInput } from '../utils/validate'
+
+const User = mongoose.model('User')
 
 // 用户注册
 const userSignup = async (req, res, next) => {

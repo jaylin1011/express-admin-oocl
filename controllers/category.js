@@ -1,3 +1,4 @@
+import mongoose from 'mongoose'
 import {
   getAll,
   getOnelById,
@@ -7,7 +8,8 @@ import {
   validUnique,
   getCount
 } from './common'
-import Category from '../models/category'
+
+const Category = mongoose.model('Category')
 
 // 分类数量
 const countCategories = getCount(Category)

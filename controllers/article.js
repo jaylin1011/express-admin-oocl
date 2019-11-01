@@ -1,3 +1,4 @@
+import mongoose from 'mongoose'
 import {
   getAll,
   getOnelById,
@@ -6,7 +7,8 @@ import {
   createOne,
   getCount
 } from './common'
-import Article from '../models/article'
+
+const Article = mongoose.model('Article')
 
 // 文章数量
 const countArticles = getCount(Article)
