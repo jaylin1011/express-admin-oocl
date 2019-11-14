@@ -7,10 +7,10 @@ const schema = new mongoose.Schema({
     unique: true,
     trim: true
   },
-  categories: [{
+  parent: {
     type: mongoose.SchemaTypes.ObjectId,
     ref: 'Category'
-  }]
+  }
 }, {
   timestamps: true,
   toJSON: {
@@ -30,6 +30,13 @@ schema.virtual('pictures', {// 该分类的图片
   foreignField: 'categories',
   jsutOne: false,
   ref: 'Picture'
+})
+
+schema.virtual('children', {// 该分类的子分类
+  localField: '_id',
+  foreignField: 'parent',
+  jsutOne: false,
+  ref: 'Category'
 })
 
 const Category = mongoose.model('Category', schema, 'categories')

@@ -10,7 +10,7 @@ import {
   UPLOAD_PATH,
   VIEW_PATH
 } from './config/constants'
-import './utils/db'
+import './utils/mongo'
 import router from './routes/index'
 import passportJwt from './utils/passport'
 

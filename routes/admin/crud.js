@@ -13,7 +13,7 @@ router
     crudController.validUnique(),
     crudController.createOne())
   .put('/:id',
-    crudController.validUnique(),
+    // crudController.validUnique(),
     crudController.updateOneById())
   .delete('/:id', crudController.deleteOneById())
 

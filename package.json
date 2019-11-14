@@ -3,8 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
-    "dev": "nodemon ./bin/www  --exec babel-node"
+    "start": "node ./server.js",
+    "dev": "cross-env process.env.PORT=3000 nodemon ./server.js  --exec babel-node",
+    "note": "nodemon ./hello-world/styudy-notes/note.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -33,6 +34,7 @@
     "babel-preset-stage-2": "^6.24.1",
     "babel-register": "^6.26.0",
     "chalk": "^2.4.2",
+    "cross-env": "^6.0.3",
     "eslint": "^6.5.1",
     "moment": "^2.24.0"
   },

@@ -14,15 +14,21 @@ const Category = mongoose.model('Category')
 // 分类数量
 const countCategories = getCount(Category)
 
+const options = {
+  queryOptions: {
+    populate: {
+      path: 'children',
+      populate: {
+        path: 'children'
+      }
+    }
+  }
+}
 // 分类列表
-const getCategories = getAll(Category, {
-  queryOptions: { populate: 'articles' }
-})
+const getCategories = getAll(Category, options)
 
 // 分类详情
-const getCategoryById = getOnelById(Category, {
-  populate: 'articles'
-})
+const getCategoryById = getOnelById(Category, options)
 
 // 添加分类
 const createCategory = createOne(Category)

@@ -21,6 +21,9 @@ router
   .put('/:id',
     passport.authenticate('jwt', { session: false }),
     userController.updateUserById)
+  .patch('/:id',
+    passport.authenticate('jwt', { session: false }),
+    userController.editUserById)
   .delete('/:id',
     passport.authenticate('jwt', { session: false }),
     userController.deleteUserById)

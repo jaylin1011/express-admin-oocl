@@ -1,3 +1,4 @@
+// import { mongoose } from '../utils/mongo'
 import mongoose from 'mongoose'
 import { hashSync, genSaltSync } from 'bcryptjs'
 import { BASE_URL } from '../config/constants'
@@ -24,6 +25,11 @@ const schema = new mongoose.Schema({
     set: value => hashSync(value, salt)
   },
 
+  role: {
+    type: mongoose.SchemaTypes.ObjectId,
+    ref: 'Role'
+  },
+
   is_admin: {
     type: Boolean,
     default: false
@@ -37,7 +43,7 @@ const schema = new mongoose.Schema({
 
   avatar: {
     type: String,
-    default: `${ BASE_URL }/public/images/avatar.jpg`
+    default: `${BASE_URL}/public/images/avatar.jpg`
   }
 }, {
   timestamps: true,

@@ -9,7 +9,7 @@ const getCount = (queryConditions = {}) => async (req, res, next) => {
     res
       .status(200)
       .json({
-        error_code: 0,
+        code: 0,
         data: doc
       })
   } catch (error) {
@@ -26,7 +26,7 @@ const getAll = (options = {}) => async (req, res, next) => {
     res
       .status(200)
       .json({
-        error_code: 0,
+        code: 0,
         data: doc
       })
   } catch (error) {
@@ -41,7 +41,7 @@ const getOnelById = (queryOptions = {}) => async (req, res, next) => {
     assert(doc, 400, { message: '获取数据失败!QAQ', err_code: 9 })
 
     res.json({
-      error_code: 0,
+      code: 0,
       data: doc
     })
   } catch (error) {
@@ -56,7 +56,7 @@ const createOne = () => async (req, res, next) => {
     assert(doc, 400, { message: '添加数据失败!QAQ', err_code: 9 })
 
     res.json({
-      error_code: 0,
+      code: 0,
       data: doc,
       message: '操作成功!=。='
     })
@@ -72,7 +72,7 @@ const updateOneById = () => async (req, res, next) => {
     assert(doc, 400, { message: '操作失败!QAQ', err_code: 10 })
 
     res.json({
-      error_code: 0,
+      code: 0,
       data: doc,
       message: '操作成功!=。='
     })
@@ -87,7 +87,7 @@ const deleteOneById = () => async (req, res, next) => {
     const doc = await req.Model.findByIdAndDelete(req.params.id)
     assert(doc, 400, { message: '操作失败!QAQ', err_code: 11 })
     res.json({
-      error_code: 0,
+      code: 0,
       data: doc,
       message: '操作成功!=。='
     })

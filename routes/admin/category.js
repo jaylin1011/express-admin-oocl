@@ -13,7 +13,7 @@ router
     categoryController.checkUnique,
     categoryController.createCategory)
   .put('/:id',
-    categoryController.checkUnique,
+    // categoryController.checkUnique,
     categoryController.updateCategoryById)
   .delete('/:id', categoryController.deleteCategoryById)
 

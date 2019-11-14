@@ -1,5 +1,5 @@
 export default {
-  // uri: 'mongodb://localhost/express_test',
+  // uri: 'mongodb://localhost/test_admin',
   uri: 'mongodb://localhost/admin_oocl',
   options: {
     useNewUrlParser: true,

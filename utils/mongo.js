@@ -15,7 +15,7 @@ const onceOpen = () => {
 
 const onError = (error) => {
   console.error(
-    chalk.red.bold(`Error in MongoDb connection: ${ error }`)
+    chalk.red.bold(`Error in MongoDb connection: ${error}`)
   )
   mongoose.disconnect()
 }
@@ -34,13 +34,12 @@ mongoose.connect(uri, options)
 //   mongoose.connect(uri, options)
 // }
 // mongoose.Promise = global.Promise
+mongoose.connection.once('open', onceOpen)
+// mongoose.connection.once('connected', onceOpen)
 
-const db = mongoose.connection
+mongoose.connection.on('error', onError)
 
-db.once('open', onceOpen)
+mongoose.connection.on('close', onClose)
+// mongoose.connection.on('disconnected', onClose)
 
-db.on('error', onError)
-
-db.on('close', onClose)
-
-// export default { connectDb }
+export default mongoose

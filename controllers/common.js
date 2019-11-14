@@ -5,11 +5,11 @@ import assert from 'http-assert'
 const getCount = (Model, queryConditions = {}) => async (req, res, next) => {
   try {
     const doc = await Model.count().where(queryConditions)
-    assert(doc, 400, { message: '获取数量失败!QAQ', err_code: 9 })
+    // assert(doc, 400, { message: '获取数量失败!QAQ', err_code: 9 })
     res
       .status(200)
       .json({
-        error_code: 0,
+        code: 0,
         data: doc
       })
   } catch (error) {
@@ -26,7 +26,7 @@ const getAll = (Model, options = {}) => async (req, res, next) => {
     res
       .status(200)
       .json({
-        error_code: 0,
+        code: 0,
         data: doc
       })
   } catch (error) {
@@ -35,13 +35,14 @@ const getAll = (Model, options = {}) => async (req, res, next) => {
 }
 
 // 详情查询
-const getOnelById = (Model, queryOptions = {}) => async (req, res, next) => {
+const getOnelById = (Model, options = {}) => async (req, res, next) => {
   try {
+    const { queryOptions = {} } = options
     const doc = await Model.findById(req.params.id).setOptions(queryOptions)
     assert(doc, 400, { message: '获取数据失败!QAQ', err_code: 9 })
 
     res.json({
-      error_code: 0,
+      code: 0,
       data: doc
     })
   } catch (error) {
@@ -56,7 +57,7 @@ const createOne = (Model) => async (req, res, next) => {
     assert(doc, 400, { message: '添加数据失败!QAQ', err_code: 9 })
 
     res.json({
-      error_code: 0,
+      code: 0,
       data: doc,
       message: '操作成功!=。='
     })
@@ -72,7 +73,7 @@ const updateOneById = (Model) => async (req, res, next) => {
     assert(doc, 400, { message: '操作失败!QAQ', err_code: 10 })
 
     res.json({
-      error_code: 0,
+      code: 0,
       data: doc,
       message: '操作成功!=。='
     })
@@ -87,7 +88,7 @@ const deleteOneById = (Model) => async (req, res, next) => {
     const doc = await Model.findByIdAndDelete(req.params.id)
     assert(doc, 400, { message: '操作失败!QAQ', err_code: 11 })
     res.json({
-      error_code: 0,
+      code: 0,
       data: doc,
       message: '操作成功!=。='
     })

@@ -42,7 +42,7 @@ const userSignup = async (req, res, next) => {
     res
       .status(201)
       .json({
-        error_code: 0,
+        code: 0,
         data: doc,
         message: '注册成功!=。='
       })
@@ -91,7 +91,7 @@ const userSignin = async (req, res, next) => {
     res
       .status(200)
       .json({
-        error_code: 0,
+        code: 0,
         data: doc,
         token,
         message: '登录成功!=。='
@@ -104,15 +104,18 @@ const userSignin = async (req, res, next) => {
 // 用户数量
 const countUsers = getCount(User)
 
+const options = {
+  queryOptions: {
+    populate: {
+      path: 'role'
+    }
+  }
+}
 // 用户列表
-const getUsers = getAll(User, {
-  queryOptions: { populate: 'articles' }
-})
+const getUsers = getAll(User, options)
 
 // 用户详情
-const getUserById = getOnelById(User, {
-  populate: 'articles',
-})
+const getUserById = getOnelById(User, options)
 
 // 删除用户
 const deleteUserById = deleteOneById(User)
@@ -124,24 +127,25 @@ const updateUserById = async (req, res, next) => {
     const { result, isFlag } = validateInput(req.body)
     assert(isFlag, 400, { message: result.message, err_code: result.err_code })
 
-    const { email, username } = req.body
-
-    // 判断邮箱是否被占用
-    let doc = await User.findOne({
-      email
-    })
-    assert(!doc, 400, { message: '邮箱被注册，请输入其他邮箱!QAQ', err_code: 4 })
-
-    // 判断用户名是否被占用
-    doc = await User.findOne({
-      username
-    })
-    assert(!doc, 400, { message: '用户名被注册，请输入其他用户名!QAQ', err_code: 5 })
-
-    doc = await User.findByIdAndUpdate(req.params.id, req.body)
+    const doc = await User.findByIdAndUpdate(req.params.id, req.body)
     assert(doc, 400, { message: '操作失败!QAQ', err_code: 10 })
     res.json({
-      error_code: 0,
+      code: 0,
+      data: doc,
+      message: '操作成功!=。='
+    })
+  } catch (error) {
+    next(error)
+  }
+}
+// 修改用户
+const editUserById = async (req, res, next) => {
+  try {
+    const { role } = req.body
+    const doc = await User.findByIdAndUpdate(req.params.id, { role })
+    assert(doc, 400, { message: '操作失败!QAQ', err_code: 10 })
+    res.json({
+      code: 0,
       data: doc,
       message: '操作成功!=。='
     })
@@ -158,7 +162,7 @@ const updateUserById = async (req, res, next) => {
 //     res
 //       .status(200)
 //       .json({
-//         error_code: 0,
+//         code: 0,
 //         data: doc
 //       })
 //   } catch (error) {
@@ -172,7 +176,7 @@ const updateUserById = async (req, res, next) => {
 //     assert(doc, 400, { message: '获取数据失败!QAQ', err_code: 9 })
 
 //     res.json({
-//       error_code: 0,
+//       code: 0,
 //       data: doc
 //     })
 //   } catch (error) {
@@ -186,7 +190,7 @@ const updateUserById = async (req, res, next) => {
 //     const doc = await User.findByIdAndDelete(req.params.id)
 //     assert(doc, 400, { message: '操作失败!QAQ', err_code: 11 })
 //     res.json({
-//       error_code: 0,
+//       code: 0,
 //       data: doc,
 //       message: '操作成功!=。='
 //     })
@@ -202,5 +206,6 @@ export default {
   getUserById,
   updateUserById,
   deleteUserById,
-  countUsers
+  countUsers,
+  editUserById
 }
